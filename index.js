@@ -6,7 +6,8 @@ let msgContainer=document.querySelector(".msg-container");
 
 let msg=document.querySelector("#msg");
 
-
+let count=0;
+let isWinner=false;
 
 
 let turnO=true;//turn of which player
@@ -16,6 +17,7 @@ let winningPattern=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4
 boxes.forEach((box)=>{
     box.addEventListener("click",()=>{
         console.log("box was clicked");
+        count++;
        // box.innerText="AIIMS DELHI";
 
        if(turnO)
@@ -49,6 +51,12 @@ const checkWinner=()=>{
         {
             console.log("Winner"," ",pos1);
             showWinner(pos1);
+            isWinner=true;
+        }
+
+        if(count==9 && isWinner==false)
+        {
+            showTie();
         }
        
     }
@@ -62,6 +70,11 @@ const showWinner=(winner)=>{
     msgContainer.classList.remove("hide");
     disabledBoxes();
 
+}
+const showTie=()=>{
+    msg.innerText="Ooops! It's a Tie.Play Again";
+    msgContainer.classList.remove("hide");
+    disabledBoxes();
 }
 
 const disabledBoxes=()=>{
@@ -80,7 +93,7 @@ const enableBoxes=()=>{
 }
 
 const resetGame=()=>{
-    turnO=true;
+    turnO=true;count=0;isWinner=false;
     enableBoxes();
     msgContainer.classList.add("hide");
 }
